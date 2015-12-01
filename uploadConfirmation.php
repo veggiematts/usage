@@ -80,7 +80,9 @@ if ($_GET['importLogID'] > 0){
 	  $errorFlag = "N";
 	  $startFlag = "N";
 	  $unmatched = "";
-	  $del = ""; //delimiter
+	  $del = $_POST['delimiter'];
+	  if ($del == "TAB") $del = "\t";
+
 	  $layoutID = $_POST['layoutID'];
 
 	#read this file
@@ -171,15 +173,11 @@ function updateSubmit(){
 
      }
 
-     //set delimiter
-	$del = "\t";
-
-
      //check column formats if the format correct flag has not been set yet
      if (($formatCorrectFlag == "N") && (count(explode($del,$line)) >= count($columnsToCheck)) && (strlen($line) > 20)){
 		//positive unless proven negative
 		$formatCorrectFlag = "Y";
-		$lineArray = explode("\t",$line);
+		$lineArray = explode($del,$line);
 
 		if (($columnsToCheck) && (count($lineArray) >=5)){
 			foreach ($columnsToCheck as $key => $colCheckName){
@@ -223,7 +221,7 @@ function updateSubmit(){
 	//as long as the flags are set to print out, and the line exists, print the line formatted in table
 	//(strpos($line,"\t\t\t\t") === false)
 //if (($startFlag == "Y") && ($formatCorrectFlag == "Y")  && !(strpos($line,"\t") == "0") && (substr($line,0,5) != "Total") && (count(explode("\t",$line)) > 5)) {
-	 if (($formatCorrectFlag == "Y") && (substr($line,0,5) != "Total") && ($startFlag == "Y")  && (strpos($line,$del) != "0" ) && (count(explode("\t",$line)) > 5)) {
+	 if (($formatCorrectFlag == "Y") && (substr($line,0,5) != "Total") && ($startFlag == "Y")  && (strpos($line,$del) != "0" ) && (count(explode($del,$line)) > 5)) {
 	 	 echo "<tr>";
 		 $lineArray = explode($del,$line);
 

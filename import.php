@@ -54,6 +54,16 @@ include 'templates/header.php';
 
 		<br /><br />
 
+		  <label for="CSV delimiter"><b><?php echo _("CSV delimiter");?>:</b><br /></label>
+		  <select name="delimiter">
+		    <option value=",">, <?php echo _("(comma)");?></option>
+		    <option value=";">; <?php echo _("(semicolon)");?></option>
+		    <option value="|">| <?php echo _("(pipe)");?></option>
+		    <option value="TAB"><?php echo _("tabulation");?></option>
+		  </select>
+
+		<br /><br />
+
         <input type="checkbox" name="overrideInd" id="overrideInd" />&nbsp;<span class="smallText">Override previous month verification</span><br /><br />
         <input type="submit" name="submitFile" id="submitFile" value="Upload" />
         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
