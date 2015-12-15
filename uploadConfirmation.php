@@ -295,6 +295,10 @@ function updateSubmit(){
 	<br />
     <form id="confirmForm" name="confirmForm" enctype="multipart/form-data" method="post" action="uploadComplete.php">
     <input type="hidden" name="upFile" value="<?php echo $target_path; ?>">
+    <?php 
+	  if ($del == "\t") $del = "TAB";
+    ?>
+    <input type="hidden" name="del" value="<?php echo $del; ?>">
     <input type="hidden" name="overrideInd" value="<?php echo $overrideInd; ?>">
     <input type="hidden" name="orgFileName" value="<?php echo $orgFileName; ?>">
     <input type="hidden" name="importLogID" value="<?php echo $importLog->importLogID; ?>">

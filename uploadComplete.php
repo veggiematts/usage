@@ -38,6 +38,8 @@ $importLogID = $_POST['importLogID'];
 $year = $_POST['checkYear'];
 $pISSNArray = array();
 $platformArray = array();
+$del = $_POST['del'];
+if ($del == "TAB") $del = "\t";
 
 
 
@@ -125,22 +127,11 @@ while (!feof($file_handle)) {
      //get each line out of the file handler
      $line = stream_get_line($file_handle, 10000000, "\n"); 
 
-     //set delimiter
-     if ($del == ""){
-        if(count(explode("\t",$line)) > 5){
-                $del = "\t";
-        }else if (count(explode(",",$line)) > 5){
-                $del = ",";
-        }
-
-
-     }
-
      //check column formats to get the year and months
-    if (($formatCorrectFlag == "N") && (count(explode("\t",$line)) >= count($columnsToCheck))){
+    if (($formatCorrectFlag == "N") && (count(explode($del,$line)) >= count($columnsToCheck))){
         //positive unless proven negative
         $formatCorrectFlag = "Y";
-        $lineArray = explode("\t",$line);
+        $lineArray = explode($del,$line);
 
         foreach ($columnsToCheck as $key => $colCheckName){	
                 $fileColName = strtolower(trim($lineArray[$key]));
@@ -182,9 +173,9 @@ while (!feof($file_handle)) {
     }
 
 	//as long as the flags are set to print out then we can continue
-	if (($startFlag == "Y") && ($formatCorrectFlag == "Y")  && !(strpos($line,"\t") == "0") && (substr($line,0,5) != "Total") && (count(explode("\t",$line)) > 5)) {
+	if (($startFlag == "Y") && ($formatCorrectFlag == "Y")  && !(strpos($line,$del) == "0") && (substr($line,0,5) != "Total") && (count(explode($del,$line)) > 5)) {
 
-		$lineArray = explode("\t",$line);
+		$lineArray = explode($del,$line);
 		$columnValues = array();
 		//match column titles in layout.ini to columns in file
 		foreach ($layoutColumns as $i => $col){
