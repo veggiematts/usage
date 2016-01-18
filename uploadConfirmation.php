@@ -87,6 +87,9 @@ if ($_GET['importLogID'] > 0){
 
 	#read this file
 	$file_handle = $util->utf8_fopen_read($target_path, false);
+    if (!$file_handle) {
+        $file_handle = fopen($target_path, "r");
+    }
 
 
 	$pageTitle = 'Upload Process Confirmation';
